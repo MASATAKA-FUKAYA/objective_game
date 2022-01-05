@@ -3,12 +3,12 @@
 ini_set('log_errors', 'on');
 ini_set('error_log', 'php.log');
 
-//モンスター達格納用
-$monsters = array();
-
 require('class.php');
 
 session_start();
+
+//モンスター達格納用
+$monsters = array();
 
 //インスタンス生成
 $human = new Human('勇者見習い', Sex::OKAMA, 500, 40, 120);
@@ -87,7 +87,7 @@ if(!empty($_POST)){
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-    <title>ホームページのタイトル</title>
+    <title>ゲーム「ドラ◯エ!!」</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>

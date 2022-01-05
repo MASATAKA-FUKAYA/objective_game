@@ -96,9 +96,9 @@ if(!empty($_POST)){
         
     }elseif($escapeFlg){ //逃げるを押した場合
         
-        History::set($_SESSION['monster']. 'から逃げた!');
+        History::set($_SESSION['monster']->getName(). 'から逃げた!');
         createMonster();
-        
+
     }
     $_POST = array();
 }
@@ -127,6 +127,7 @@ if(!empty($_POST)){
             <p class="monster-hp">モンスターのHP：<?php echo $_SESSION['monster']->getHp(); ?></p>
             <p>倒したモンスター数：<?php echo $_SESSION['knockDownCount']; ?></p>
             <p>勇者の残りHP：<?php echo $_SESSION['human']->getHp(); ?></p>
+            <p>勇者の回復回数：<?php echo $_SESSION['human']->getRecoverCount(); ?></p>
             <form method="post">
                 <input type="submit" name="attack" value="▶攻撃する">
                 <input type="submit" name="recover" value="▶回復する">

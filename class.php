@@ -82,18 +82,24 @@ class Human extends Creature{
 
     //回復する
     public function recover(){
-        $recoverPoint = mt_rand(10,100); //10〜100ポイントの間でHP回復
+        //回復は3回まで。現在の回復回数を判定
+        if($this->recoverCount < 3){ //今までに3回以下なら回復行動
+            
+            $recoverPoint = mt_rand(10,100); //10〜100ポイントの間でHP回復
 
-        if( ($this->getHp() + $recoverPoint) < $this->maxHp){ //回復してもHPが満タンにならない場合
-            $this->setHp($this->getHp() + $recoverPoint);
-            History::set($this->name. 'は'. $recoverPoint. 'ポイントのHPを回復!');
-        }else{
-            $this->setHp($this->maxHp);
-            $recoverPoint = $this->maxHp - $this->getHp();
-            History::set($this->name. 'は'. $recoverPoint. 'ポイントのHPを回復!');
-            $this->recoverCount ++;
+            if( ($this->getHp() + $recoverPoint) <= $this->maxHp){ //回復してもHPが満タンにならない場合
+                $this->setHp($this->getHp() + $recoverPoint);
+                History::set($this->name. 'は'. $recoverPoint. 'ポイントのHPを回復!');
+                $this->recoverCount ++;
+            }else{ //回復するとHPが満タンになる場合
+                $recoverPoint = $this->maxHp - $this->getHp();
+                $this->setHp($this->maxHp);
+                History::set($this->name. 'は'. $recoverPoint. 'ポイントのHPを回復!');
+                $this->recoverCount ++;
+            } 
+        }else{ //既に3回回復している場合
+            History::set($this->name. 'はもう回復できない!!');
         }
-        
     }
 }
 //モンスタークラス

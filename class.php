@@ -45,20 +45,24 @@ abstract class Creature{
 //人クラス
 class Human extends Creature{
     protected $sex;
+    protected $maxHp; //回復する時の判定で使用。HPの初期値以上には回復できない。
+    protected $recoverCount = 0;
+
     public function __construct($name, $sex, $hp, $attackMin, $attackMax){
         $this->name = $name;
         $this->sex = $sex;
         $this->hp = $hp;
+        $this->maxHp = $hp;
         $this->attackMin = $attackMin;
         $this->attackMax = $attackMax;
     }
 
     //セッター・ゲッター
-    public function setSex($num){
-        $this->sex = $num;
-    }
     public function getSex(){
         return $this->sex;
+    }
+    public function getRecoverCount(){
+        return $this->recoverCount;
     }
 
     public function sayCry(){
@@ -74,6 +78,22 @@ class Human extends Creature{
                 History::set('もっと!');
                 break;
         }
+    }
+
+    //回復する
+    public function recover(){
+        $recoverPoint = mt_rand(10,100); //10〜100ポイントの間でHP回復
+
+        if( ($this->getHp() + $recoverPoint) < $this->maxHp){ //回復してもHPが満タンにならない場合
+            $this->setHp($this->getHp() + $recoverPoint);
+            History::set($this->name. 'は'. $recoverPoint. 'ポイントのHPを回復!');
+        }else{
+            $this->setHp($this->maxHp);
+            $recoverPoint = $this->maxHp - $this->getHp();
+            History::set($this->name. 'は'. $recoverPoint. 'ポイントのHPを回復!');
+            $this->recoverCount ++;
+        }
+        
     }
 }
 //モンスタークラス

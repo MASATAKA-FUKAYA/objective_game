@@ -155,9 +155,13 @@ class FlyMonster extends Monster{
     //攻撃はオーバーライドで空からの体当たりを追加
     public function attack($targetObj){
         if(!mt_rand(0,2)){ // 1/3の確率で空からの攻撃
-            History::set($this->name.'の魔法攻撃!!');
-            $targetObj->setHp( $targetObj->getHp() - $this->magicAttack);
-            History::set($this->magicAttack.'ポイントのダメージを受けた!');
+            $attackPoint = $attackPoint * 1.2; //空中攻撃は攻撃力1.2倍
+            $attackPoint = (int)$attackPoint;
+            History::set($this->getName().'の空からの体当たり攻撃!');
+            $targetObj->setHp($targetObj->getHp() - $this->attackPoint);
+            History::set($this->attackPoint.'ポイントのダメージを受けた!');
+            $this->setHp($this->getHp() - 20); //空中攻撃はモンスター自身もhpが減る
+            History::set($this->name. 'も20ポイントのダメージを受けた!');
         }else{
             parent::attack($targetObj);
         }

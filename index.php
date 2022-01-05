@@ -58,7 +58,6 @@ if(!empty($_POST)){
     }elseif($attackFlg){ //攻撃するを押した場合
 
         //モンスターに攻撃を与える
-        History::set($_SESSION['human']->getName().'の攻撃!');
         $_SESSION['human']->attack($_SESSION['monster']);            
         $_SESSION['monster']->sayCry();
 
@@ -70,7 +69,6 @@ if(!empty($_POST)){
         }
 
         //モンスターが攻撃する
-        History::set($_SESSION['monster']->getName().'の攻撃!');
         $_SESSION['monster']->attack($_SESSION['human']);
         $_SESSION['human']->sayCry();
 
@@ -85,7 +83,6 @@ if(!empty($_POST)){
         $_SESSION['human']->recover();
 
         //モンスターが攻撃する
-        History::set($_SESSION['monster']->getName().'の攻撃!');
         $_SESSION['monster']->attack($_SESSION['human']);
         $_SESSION['human']->sayCry();
 

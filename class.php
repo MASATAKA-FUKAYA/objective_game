@@ -32,6 +32,7 @@ abstract class Creature{
 
     public function attack($targetObj){
         $attackPoint = mt_rand($this->attackMin, $this->attackMax);
+        History::set($this->name.'の攻撃!!');
         if(!mt_rand(0,9)){ //　1/10の確率でクリティカルヒット
             $attackPoint = $attackPoint * 1.5;
             $attackPoint = (int)$attackPoint;
@@ -137,7 +138,7 @@ class MagicMonster extends Monster{
         return $this->magicAttack;
     }
 
-    //オーバーライド
+    //攻撃はオーバーライドで魔法攻撃を追加
     public function attack($targetObj){
         if(!mt_rand(0,4)){ // 1/5の確率で魔法攻撃
             History::set($this->name.'の魔法攻撃!!');
@@ -148,7 +149,24 @@ class MagicMonster extends Monster{
         }
     }
 }
+//空を飛べるモンスタークラス
+class FlyMonster extends Monster{
+    
+    //攻撃はオーバーライドで空からの体当たりを追加
+    public function attack($targetObj){
+        if(!mt_rand(0,2)){ // 1/3の確率で空からの攻撃
+            History::set($this->name.'の魔法攻撃!!');
+            $targetObj->setHp( $targetObj->getHp() - $this->magicAttack);
+            History::set($this->magicAttack.'ポイントのダメージを受けた!');
+        }else{
+            parent::attack($targetObj);
+        }
+    }
 
+}
+
+
+//インターフェース
 interface HistoryInterface{
     public static function set($str);
     public static function clear();

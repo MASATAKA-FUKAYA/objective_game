@@ -44,40 +44,41 @@ function gameOver(){
 
 //POST送信されていた場合
 if(!empty($_POST)){
-    $attackFlg = (!empty($_POST['attack'])) ? true : false;
     $startFlg = (!empty($_POST['start'])) ? true : false;
+    $attackFlg = (!empty($_POST['attack'])) ? true : false;
+    $recoverFlg = (!empty($_POST['recover'])) ? true : false;
+    $escapeFlg = (!empty($_POST['escape'])) ? true : false;
     error_log('POSTされました。');
 
     if($startFlg){ //スタートボタンを押した場合
         History::set('ゲームスタート!');
         init();
-    }else{
-        if($attackFlg){ //攻撃するを押した場合
+    }elseif($attackFlg){ //攻撃するを押した場合
+        //モンスターに攻撃を与える
+        History::set($_SESSION['human']->getName().'の攻撃!');
+        $_SESSION['human']->attack($_SESSION['monster']);            
+        $_SESSION['monster']->sayCry();
 
-            //モンスターに攻撃を与える
-            History::set($_SESSION['human']->getName().'の攻撃!');
-            $_SESSION['human']->attack($_SESSION['monster']);
-            $_SESSION['monster']->sayCry();
-
-            //モンスターが攻撃する
-            History::set($_SESSION['monster']->getName().'の攻撃!');
-            $_SESSION['monster']->attack($_SESSION['human']);
-            $_SESSION['human']->sayCry();
-
-            //自分のhpが0以下になったらゲームオーバー
-            if($_SESSION['human']->getHp() <= 0){
-                gameOver();
-            }else{
-                //敵モンスターのhpが0以下になったら、別のモンスターを出現させる
-                if($_SESSION['monster']->getHp() <=0){
-                    History::set($_SESSION['monster']->getName().'を倒した!');  
-                    $_SESSION['knockDownCount'] ++;
-                    createMonster();
-                }
-            }
-        }else{ //逃げるを押した場合
-            History::set('逃げた!');
+        //敵モンスターのhpが0以下になったら、別のモンスターを出現させる
+        if($_SESSION['monster']->getHp() <=0){
+            History::set($_SESSION['monster']->getName().'を倒した!');  
+            $_SESSION['knockDownCount'] ++;
+            createMonster();
         }
+
+        //モンスターが攻撃する
+        History::set($_SESSION['monster']->getName().'の攻撃!');
+        $_SESSION['monster']->attack($_SESSION['human']);
+        $_SESSION['human']->sayCry();
+
+        //自分のhpが0以下になったらゲームオーバー
+        if($_SESSION['human']->getHp() <= 0){
+            gameOver();
+        }
+    }elseif($recoverFlg){ //回復するを押した場合
+        $_SESSION['human']->recover();
+    }elseif($escapeFlg){ //逃げるを押した場合
+        History::set('逃げた!');
     }
     $_POST = array();
 }
@@ -101,13 +102,14 @@ if(!empty($_POST)){
         <?php else: ?>
             <h2><?php echo $_SESSION['monster']->getName().'が現れた!!'; ?></h2>
             <div style="height: 150px;">
-                <img src="<?php echo $_SESSION['monster']->getImg(); ?>" style="width:120px; height:auto; margin:40px auto 0 auto; display:block;">
+                <img src="<?php echo $_SESSION['monster']->getImg(); ?>">
             </div>
-            <p style="font-size:14px; text-align:center;">モンスターのHP：<?php echo $_SESSION['monster']->getHp(); ?></p>
+            <p class="monster-hp">モンスターのHP：<?php echo $_SESSION['monster']->getHp(); ?></p>
             <p>倒したモンスター数：<?php echo $_SESSION['knockDownCount']; ?></p>
             <p>勇者の残りHP：<?php echo $_SESSION['human']->getHp(); ?></p>
             <form method="post">
                 <input type="submit" name="attack" value="▶攻撃する">
+                <input type="submit" name="recover" value="▶回復する">
                 <input type="submit" name="escape" value="▶逃げる">
                 <input type="submit" name="start" value="▶ゲームリスタート">
             </form>

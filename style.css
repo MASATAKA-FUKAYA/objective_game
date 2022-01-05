@@ -3,7 +3,7 @@ body{
     padding: 150px;
     width: 25%;
     background: #fbfbfa;
-color: white;
+    color: white;
 }
 h1{ color: white; font-size: 20px; text-align: center;}
 h2{ color: white; font-size: 16px; text-align: center;}
@@ -48,4 +48,10 @@ a{
 }
 a:hover{
     text-decoration: none;
+}
+
+.game-window{
+    background: black;
+    padding: 15px;
+    position: relative;
 }

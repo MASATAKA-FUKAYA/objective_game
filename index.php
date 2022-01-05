@@ -91,8 +91,8 @@ if(!empty($_POST)){
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 style="text-align:center; color:#333;">ゲーム「ドラ◯エ!!」</h1>
-    <div style="background:black; padding:15px; position:relative;">
+    <h1>ゲーム「ドラ◯エ!!」</h1>
+    <div class="game-window">
         <?php if(empty($_SESSION)): ?>
             <h2 style="margin-top:60px;">GAME START ?</h2>
             <form method="post">

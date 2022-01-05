@@ -51,9 +51,12 @@ if(!empty($_POST)){
     error_log('POSTされました。');
 
     if($startFlg){ //スタートボタンを押した場合
+
         History::set('ゲームスタート!');
         init();
+
     }elseif($attackFlg){ //攻撃するを押した場合
+
         //モンスターに攻撃を与える
         History::set($_SESSION['human']->getName().'の攻撃!');
         $_SESSION['human']->attack($_SESSION['monster']);            
@@ -75,10 +78,27 @@ if(!empty($_POST)){
         if($_SESSION['human']->getHp() <= 0){
             gameOver();
         }
+
     }elseif($recoverFlg){ //回復するを押した場合
+
+        //自分のHPを回復する
         $_SESSION['human']->recover();
+
+        //モンスターが攻撃する
+        History::set($_SESSION['monster']->getName().'の攻撃!');
+        $_SESSION['monster']->attack($_SESSION['human']);
+        $_SESSION['human']->sayCry();
+
+        //自分のhpが0以下になったらゲームオーバー
+        if($_SESSION['human']->getHp() <= 0){
+            gameOver();
+        }
+        
     }elseif($escapeFlg){ //逃げるを押した場合
-        History::set('逃げた!');
+        
+        History::set($_SESSION['monster']. 'から逃げた!');
+        createMonster();
+        
     }
     $_POST = array();
 }

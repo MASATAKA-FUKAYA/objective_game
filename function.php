@@ -5,12 +5,13 @@ ini_set('error_log', 'php.log');
 
 function createMonster(){
     global $monsters;
-    $monster = $monsters[mt_rand(0,2)];
+    $monster = $monsters[mt_rand(0,9)];
     History::set($monster->getName().'が現れた!');
     $_SESSION['monster'] = $monster;
 }
 function createHuman(){
-    global $human;
+    global $humans;
+    $human = $humans[mt_rand(0,2)];
     $_SESSION['human'] = $human;
 }
 function init(){

@@ -1,8 +1,6 @@
 <?php
 
-ini_set('log_errors', 'on');
-ini_set('error_log', 'php.log');
-
+require('function.php');
 require('class.php');
 
 session_start();
@@ -23,27 +21,6 @@ $monsters[] = new Monster( '毒ハンド', 100, 'img/monster06.png', 10, 30 );
 $monsters[] = new Monster( '泥ハンド', 120, 'img/monster07.png', 20, 30 );
 $monsters[] = new Monster( '血のハンド', 180, 'img/monster08.png', 30, 50 );
 $monsters[] = new FlyMonster( 'ドラゴン', 200, 'img/monster09.png', 40, 70 );
-
-function createMonster(){
-    global $monsters;
-    $monster = $monsters[mt_rand(0,2)];
-    History::set($monster->getName().'が現れた!');
-    $_SESSION['monster'] = $monster;
-}
-function createHuman(){
-    global $human;
-    $_SESSION['human'] = $human;
-}
-function init(){
-    History::clear();
-    History::set('初期化します。');
-    $_SESSION['knockDownCount'] = 0;
-    createHuman();
-    createMonster();
-}
-function gameOver(){
-    $_SESSION = array();
-}
 
 //POST送信されていた場合
 if(!empty($_POST)){

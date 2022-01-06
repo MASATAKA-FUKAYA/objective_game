@@ -1,11 +1,17 @@
 <?php
 
+require('function.php');
+session_start();
+
 error_log('gameoverページ');
 error_log(print_r($_SESSION,true));
 error_log(print_r('POSTの中身：'. $_POST,true));
+
+
 //POST送信されていた場合
 if(!empty($_POST)){
     error_log('POSTされました。');
+    error_log('gameoverページ');
     //セッションを終わり、トップページへ
     $_SESSION = array();
     header("Location:top.php");
@@ -24,7 +30,7 @@ if(!empty($_POST)){
     <div class="game-window">
         <h2 style="margin-top:60px;">GAME OVER...</h2>
         <form method="post">
-            <input type="submit" value="▶もう一度チャレンジする">
+            <input type="submit" name="top" value="▶もう一度チャレンジする">
        </form>
     </div>
 </body>

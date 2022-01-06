@@ -10,7 +10,6 @@ function createMonster(){
     $_SESSION['monster'] = $monster;
 }
 function init(){
-    History::clear();
     $_SESSION = array();
     header("Location:top.php");
 }

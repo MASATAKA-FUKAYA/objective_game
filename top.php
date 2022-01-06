@@ -4,6 +4,8 @@ require('function.php');
 require('class.php');
 
 session_start();
+$_SESSION = array();
+
 error_log('topページ');
 error_log(print_r($_SESSION,true));
 //POST送信されていた場合

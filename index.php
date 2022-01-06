@@ -1,10 +1,9 @@
 <?php
 
 require('data.php');
-
 session_start();
 
-//TOPページから遷移してきた時にはここでモンスター生成
+//TOPページから遷移してきた時にはここでモンスター生成、ノックダウンカウントも初期化
 if(empty($_SESSION['monster'])){
     createMonster();
 }
@@ -16,7 +15,7 @@ if(!empty($_POST)){
     $startFlg = (!empty($_POST['start'])) ? true : false;
 
     if($startFlg){ //スタートボタン（ゲームリスタートボタン）を押した場合
-        History::set('ゲームスタート!');
+        //History::set('ゲームスタート!');
         init();
     }
 
@@ -67,7 +66,6 @@ if(!empty($_POST)){
                 //2.2.1自分のhpが0以下になったらゲームオーバー
                 if($_SESSION['human']->getHp() <= 0){
                     header("Location:gameOver.php");
-                    exit();
                 }
             }
         }elseif($humanRecoverFlg){ //回復するを押した場合
@@ -81,7 +79,6 @@ if(!empty($_POST)){
             //2.1自分のhpが0以下になったらゲームオーバー
             if($_SESSION['human']->getHp() <= 0){
                 header("Location:gameOver.php");
-                exit();
             }
                 
         }elseif($escapeFlg){ //逃げるを押した場合        

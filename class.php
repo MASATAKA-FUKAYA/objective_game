@@ -94,7 +94,7 @@ class Human extends Creature{
                 History::set('きゃっ!');
                 break;
             case Sex::OKAMA :
-                History::set('もっと!');
+                History::set('もっと!♡');
                 break;
         }
     }

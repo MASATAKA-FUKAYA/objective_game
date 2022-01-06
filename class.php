@@ -29,6 +29,18 @@ abstract class Creature{
     public function getHp(){
         return $this->hp;
     }
+    public function setAttackMin($num){
+        $this->attackMin = $num;
+    }
+    public function getAttackMin(){
+        return $this->attackMin;
+    }
+    public function setAttackMax($num){
+        $this->attackMin = $num;
+    }
+    public function getAttackMax(){
+        return $this->attackMin;
+    }
 
     public function attack($targetObj){
         $attackPoint = mt_rand($this->attackMin, $this->attackMax);
@@ -46,7 +58,7 @@ abstract class Creature{
 //人クラス
 class Human extends Creature{
     protected $sex;
-    protected $maxHp; //回復する時の判定で使用。HPの初期値以上には回復できない。
+    protected $maxHp;
     protected $recoverCount = 0;
 
     public function __construct($name, $sex, $hp, $attackMin, $attackMax){
@@ -61,6 +73,12 @@ class Human extends Creature{
     //セッター・ゲッター
     public function getSex(){
         return $this->sex;
+    }
+    public function setMaxHp($num){
+        $this->maxHp = $num;
+    }
+    public function getMaxHp(){
+        return $this->maxHp;
     }
     public function getRecoverCount(){
         return $this->recoverCount;
@@ -155,11 +173,12 @@ class FlyMonster extends Monster{
     //攻撃はオーバーライドで空からの体当たりを追加
     public function attack($targetObj){
         if(!mt_rand(0,2)){ // 1/3の確率で空からの攻撃
+            $attackPoint = mt_rand($this->attackMin, $this->attackMax);
             $attackPoint = $attackPoint * 1.2; //空中攻撃は攻撃力1.2倍
             $attackPoint = (int)$attackPoint;
             History::set($this->getName().'の空からの体当たり攻撃!');
-            $targetObj->setHp($targetObj->getHp() - $this->attackPoint);
-            History::set($this->attackPoint.'ポイントのダメージを受けた!');
+            $targetObj->setHp($targetObj->getHp() - $attackPoint);
+            History::set($attackPoint.'ポイントのダメージを受けた!');
             $this->setHp($this->getHp() - 20); //空中攻撃はモンスター自身もhpが減る
             History::set($this->name. 'も20ポイントのダメージを受けた!');
         }else{
@@ -167,8 +186,43 @@ class FlyMonster extends Monster{
         }
     }
 
-}
+}//神様クラス
+class God{
+    private $name;
+    Private $img;
 
+    //コンストラクタ
+    public function __construct($name, $img){
+        $this->name = $name;
+        $this->img = $img;
+    }
+
+    //ゲッター
+    public function getName(){
+        return $this->name;
+    }
+    public function getImg(){
+        return $this->img;
+    }
+
+    //プレイヤーに以下のアクションを選択させる
+    //1.回復
+    public function recover($targetObj){
+        $targetObj->setHp($targetObj->getMaxHp());
+        History::set($this->name. 'がHPを全回復させてくれた!');
+    }
+    //2.攻撃力アップ
+    public function powerUp($targetObj){
+        $targetObj->setAttackMin($targetObj->getAttackMin() + 20);
+        $targetObj->setAttackMax($targetObj->getAttackMax() + 20);
+        History::set($this->name. 'が最小・最大攻撃力を20上げてくれた!');
+    }
+    //3.HPアップ
+    public function maxhpUp($targetObj){
+        $targetObj->setMaxHp($targetObj->getMaxHp() * 2);
+        History::set($this->name. 'が最大HPを2倍にしてくれた!');
+    }
+}
 
 //インターフェース
 interface HistoryInterface{

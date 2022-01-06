@@ -4,18 +4,14 @@ require('data.php');
 
 session_start();
 
+//TOPページから遷移してきた時にはここでモンスター生成
 if(empty($_SESSION['monster'])){
     createMonster();
-}
-//topページ作成後削除
-if(empty($_SESSION['human'])){
-    createHuman();
 }
 
 //POST送信されていた場合
 if(!empty($_POST)){
     error_log('POSTされました。');
-    error_log(print_r($_SESSION['monster'],true));
 
     $startFlg = (!empty($_POST['start'])) ? true : false;
 
@@ -40,8 +36,6 @@ if(!empty($_POST)){
         }elseif($maxhpUpFlg){ 
             //丈夫にしてもらうを押した場合
             $_SESSION['monster']->maxhpUp($_SESSION['human']);
-            error_log(print_r($_SESSION['human']->getMaxHp(), true));
-            error_log('神様がHPを上げてくれた');
         }
 
         //神様は一回行動したらいなくなる
@@ -140,7 +134,7 @@ if(!empty($_POST)){
         <?php endif; ?>
         <div style="position:absolute; right:-350px; top:0; color:black; width: 300px;">
             <p><?php echo (!empty($_SESSION['history'])) ? $_SESSION['history'] : ''; ?></p>
-      </div>
+        </div>
     </div>
 </body>
 </html>

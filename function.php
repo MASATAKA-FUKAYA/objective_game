@@ -9,17 +9,10 @@ function createMonster(){
     History::set($monster->getName().'が現れた!');
     $_SESSION['monster'] = $monster;
 }
-function createHuman(){
-    global $humans;
-    $human = $humans[mt_rand(0,2)];
-    $_SESSION['human'] = $human;
-}
 function init(){
     History::clear();
-    History::set('初期化します。');
-    $_SESSION['knockDownCount'] = 0;
-    createHuman();
-    createMonster();
+    session_destroy();
+    header("Location:top.php");
 }
 function gameOver(){
     $_SESSION = array();

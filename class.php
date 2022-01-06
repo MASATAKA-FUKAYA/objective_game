@@ -219,7 +219,7 @@ class God{
     }
     //3.HPアップ
     public function maxhpUp($targetObj){
-        $targetObj->setMaxHp($targetObj->getMaxHp() * 2);
+        $targetObj->setMaxHp($targetObj->getMaxHp() + 500);
         History::set($this->name. 'が最大HPを2倍にしてくれた!');
     }
 }

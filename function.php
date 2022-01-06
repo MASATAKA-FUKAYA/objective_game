@@ -11,10 +11,7 @@ function createMonster(){
 }
 function init(){
     History::clear();
-    session_destroy();
-    header("Location:top.php");
-}
-function gameOver(){
     $_SESSION = array();
+    header("Location:top.php");
 }
 ?>

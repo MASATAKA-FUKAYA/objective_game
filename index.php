@@ -66,7 +66,8 @@ if(!empty($_POST)){
 
                 //2.2.1自分のhpが0以下になったらゲームオーバー
                 if($_SESSION['human']->getHp() <= 0){
-                    gameOver();
+                    header("Location:gameOver.php");
+                    exit();
                 }
             }
         }elseif($humanRecoverFlg){ //回復するを押した場合
@@ -79,7 +80,8 @@ if(!empty($_POST)){
 
             //2.1自分のhpが0以下になったらゲームオーバー
             if($_SESSION['human']->getHp() <= 0){
-                gameOver();
+                header("Location:gameOver.php");
+                exit();
             }
                 
         }elseif($escapeFlg){ //逃げるを押した場合        

@@ -27,7 +27,7 @@ if(!empty($_POST)){
             $_SESSION['human'] = new Wizard('男魔法使い', Sex::MAN, 500, 30, 100);
             break;        
         case 'wizard-woman':
-            $_SESSION['human'] = new Wizard('女魔法使い', Sex::MAN, 500, 30, 100);
+            $_SESSION['human'] = new Wizard('女魔法使い', Sex::WOMAN, 500, 30, 100);
             break; 
     }
     

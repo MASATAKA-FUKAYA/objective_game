@@ -3,9 +3,15 @@
 require('data.php');
 session_start();
 
+error_log('index.php');
+error_log(print_r($_SESSION['human'], true));
+
 //TOPページから遷移してきた時にはここでモンスター生成、ノックダウンカウントも初期化
 if(empty($_SESSION['monster'])){
     createMonster();
+}
+if(is_null($_SESSION['knockDownCount'])){
+    $_SESSION['knockDownCount'] = 0;
 }
 
 //POST送信されていた場合

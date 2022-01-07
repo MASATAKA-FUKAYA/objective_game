@@ -128,7 +128,7 @@ class Wizard extends Human{
 
     //コンストラクタ
     public function __construct($name, $sex, $hp, $attackMin, $attackMax){
-        parent::__construct();
+        parent::__construct($name, $sex, $hp, $attackMin, $attackMax);
         //MPは、インスタンス生成時に50-100の間でランダムに決定
         $this->mp = mt_rand(50, 100);
     }

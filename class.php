@@ -121,6 +121,57 @@ class Human extends Creature{
         }
     }
 }
+//魔法使いクラス
+class Wizard extends Human{
+    //魔法攻撃用。魔法攻撃を行うとMPが減る
+    private $mp;
+
+    //コンストラクタ
+    public function __construct($name, $sex, $hp, $attackMin, $attackMax){
+        parent::__construct();
+        //MPは、インスタンス生成時に50-100の間でランダムに決定
+        $this->mp = mt_rand(50, 100);
+    }
+
+    //セッター・ゲッター
+    public function setMp($num){
+        $this->mp = $num;
+    }
+    public function getMp(){
+        return $this->mp;
+    }
+
+    //攻撃メソッド（オーバーライド）
+    public function attack($targetObj){
+        if($this->mp !==0 && !mt_rand(0,2)){ //MPが0ではない場合、1/3の確率で魔法攻撃
+
+            //魔法攻撃を行うとMPが10減る
+            $this->mp -= 10;
+
+            History::set($this->name.'の魔法攻撃!!');
+
+            if($targetObj instanceof FlyMonster){
+                //モンスターが「空を飛べるモンスター」の場合、魔法攻撃のダメージは必ず1.5倍
+                //「効果は抜群だ」の表示をする
+                $attackPoint = mt_rand($this->attackMin, $this->attackMax);
+                $attackPoint = $attackPoint * 1.5;
+                $attackPoint = (int)$attackPoint;
+                $targetObj->setHp($targetObj->getHp() - $attackPoint);
+                History::set($attackPoint.'ポイントのダメージ!');
+                History::set($attackPoint.'効果は抜群だ!!!');
+            }else{
+                //それ以外のモンスターの場合、魔法攻撃はランダムで通常攻撃の50%~200%のダメージになる
+                $attackPoint = mt_rand($this->attackMin * 0.5, $this->attackMax * 2);
+                $attackPoint = (int)$attackPoint;
+                $targetObj->setHp($targetObj->getHp() - $attackPoint);
+                History::set($attackPoint.'ポイントのダメージ!');
+            }
+
+        }else{ //MPが0の時には必ず通常攻撃、通常攻撃はHumanクラスと一緒
+            parent::attack($targetObj);
+        }
+    }
+}
 //モンスタークラス
 class Monster extends Creature{
     protected $img;

@@ -11,7 +11,6 @@ error_log(print_r('POSTの中身：'. $_POST,true));
 //POST送信されていた場合
 if(!empty($_POST)){
     error_log('POSTされました。');
-    error_log('gameoverページ');
     //セッションを終わり、トップページへ
     $_SESSION = array();
     header("Location:top.php");

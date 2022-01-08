@@ -3,7 +3,7 @@
 require('function.php');
 session_start();
 
-error_log('gameoverページ');
+error_log('gameclearページ');
 error_log(print_r($_SESSION,true));
 error_log(print_r('POSTの中身：'. $_POST,true));
 
@@ -27,7 +27,7 @@ if(!empty($_POST)){
 <body>
     <h1>ゲーム「ドラ◯エ!!」</h1>
     <div class="game-window">
-        <h2 style="margin-top:60px;">GAME OVER...</h2>
+        <h2 style="margin-top:60px;">GAME CCLEAR!!おめでとう!!</h2>
         <form method="post">
             <input type="submit" name="top" value="▶もう一度チャレンジする">
        </form>

@@ -122,6 +122,9 @@ if(!empty($_POST)){
             <?php endif; ?>
             <p>倒したモンスター数：<?php echo $_SESSION['knockDownCount']; ?></p>
             <p>自分のHP：<?php echo $_SESSION['human']->getHp(); ?>/<?php echo $_SESSION['human']->getMaxHp(); ?></p>
+            <?php if($_SESSION['human'] instanceof Wizard) : ?>
+                <p>自分のMP：<?php echo $_SESSION['human']->getMp(); ?>/<?php echo $_SESSION['human']->getMaxMp(); ?></p>
+            <?php endif; ?>
             <p>自分の回復回数：<?php echo $_SESSION['human']->getRecoverCount(); ?></p>
             <form method="post">
                 <?php if($_SESSION['monster'] instanceof God): ?>

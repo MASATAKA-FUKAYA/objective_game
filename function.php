@@ -8,10 +8,16 @@ function createMonster(){
     //５体目までモンスターを倒すと、以降はランダムでボス出現
     if($_SESSION['knockDownCount'] >= 5){
         $monster = $monsters[mt_rand(0,10)];
-        History::set($monster->getName().'が現れた!');
+        if($monster instanceof BossMonster){
+            //ボスの場合は台詞を強調
+            History::set($monster->getName().'が現れた!!!!!!!!!!!!');
+        }else{
+            History::set($monster->getName().'が現れた!');
+        }
+        
     }else{
         $monster = $monsters[mt_rand(0,9)];
-        History::set($monster->getName().'が現れた!!!!!!!!!');
+        History::set($monster->getName().'が現れた!');
     }
     
     $_SESSION['monster'] = $monster;

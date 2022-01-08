@@ -242,7 +242,21 @@ class FlyMonster extends Monster{
         }
     }
 
-}//神様クラス
+}
+//ボスモンスター
+class BossMonster extends Monster{
+    public function __construct($name, $img){
+        $this->name = $name;
+        $this->img = $img;
+        //攻撃力の最小・最大は固定
+        $this->attackMin = 50;
+        $this->attackMax = 80;
+        //HPはボス登場までに倒されたモンスターの数に応じて変化する
+        //500+（倒されたモンスターの数＊10）
+        $this->hp = 500 + ($_SESSION['knockDownCount'] * 10);
+    }
+}
+//神様クラス
 class God{
     private $name;
     Private $img;

@@ -17,5 +17,6 @@ $monsters[] = new Monster( '毒ハンド', 100, 'img/monster06.png', 10, 30 );
 $monsters[] = new Monster( '泥ハンド', 120, 'img/monster07.png', 20, 30 );
 $monsters[] = new Monster( '血のハンド', 180, 'img/monster08.png', 30, 50 );
 $monsters[] = new FlyMonster( 'ドラゴン', 200, 'img/monster09.png', 40, 70 );
+$monsters[] = new BossMonster('ボス', 'img/bossmonster.png');
 
 ?>

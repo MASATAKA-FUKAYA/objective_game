@@ -125,12 +125,14 @@ class Human extends Creature{
 class Wizard extends Human{
     //魔法攻撃用。魔法攻撃を行うとMPが減る
     private $mp;
+    private $maxMp;
 
     //コンストラクタ
     public function __construct($name, $sex, $hp, $attackMin, $attackMax){
         parent::__construct($name, $sex, $hp, $attackMin, $attackMax);
         //MPは、インスタンス生成時に50-100の間でランダムに決定
         $this->mp = mt_rand(50, 100);
+        $this->maxMp = $this->mp;
     }
 
     //セッター・ゲッター
@@ -139,6 +141,9 @@ class Wizard extends Human{
     }
     public function getMp(){
         return $this->mp;
+    }
+    public function getMaxMp(){
+        return $this->maxMp;
     }
 
     //攻撃メソッド（オーバーライド）

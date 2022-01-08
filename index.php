@@ -59,17 +59,24 @@ if(!empty($_POST)){
             $_SESSION['human']->attack($_SESSION['monster']);            
             $_SESSION['monster']->sayCry();
 
+            //1.1 敵を倒した場合
             if($_SESSION['monster']->getHp() <=0){
-                //2.1 敵モンスターのhpが0以下になったら、別のモンスターを出現させる
                 History::set($_SESSION['monster']->getName().'を倒した!');  
                 $_SESSION['knockDownCount'] ++;
-                createMonster();
+
+                if($_SESSION['monster'] instanceof BossMonster){
+                    //ボスを倒した場合、ゲームクリア
+                    header("Location:gameClear.php");
+                }else{
+                    //それ以外のモンスターを倒した場合、次のモンスターを出現させる
+                    createMonster();
+                }                
             }else{
-                //2.2モンスターが攻撃する
+                //2.モンスターが攻撃する
                 $_SESSION['monster']->attack($_SESSION['human']);
                 $_SESSION['human']->sayCry();
 
-                //2.2.1自分のhpが0以下になったらゲームオーバー
+                //2.1自分のhpが0以下になったらゲームオーバー
                 if($_SESSION['human']->getHp() <= 0){
                     header("Location:gameOver.php");
                 }
@@ -135,7 +142,10 @@ if(!empty($_POST)){
                 <?php elseif($_SESSION['monster'] instanceof Monster): ?>
                     <input type="submit" name="attack" value="▶攻撃する">
                     <input type="submit" name="humanRecover" value="▶回復する">
-                    <input type="submit" name="escape" value="▶逃げる">
+                    <?php if( !($_SESSION['monster'] instanceof BossMonster)) : ?>
+                        <!-- ボスからは逃げられない -->
+                        <input type="submit" name="escape" value="▶逃げる">
+                    <?php endif; ?>
                     <input type="submit" name="start" value="▶ゲームリスタート">
                 <?php endif; ?>
             </form>

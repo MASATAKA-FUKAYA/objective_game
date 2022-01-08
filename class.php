@@ -148,7 +148,7 @@ class Wizard extends Human{
 
     //攻撃メソッド（オーバーライド）
     public function attack($targetObj){
-        if($this->mp !==0 && !mt_rand(0,2)){ //MPが0ではない場合、1/3の確率で魔法攻撃
+        if($this->mp <= 9 && !mt_rand(0,2)){ //MPが足りている場合、1/3の確率で魔法攻撃
 
             //魔法攻撃を行うとMPが10減る
             $this->mp -= 10;

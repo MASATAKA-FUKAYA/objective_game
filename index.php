@@ -121,8 +121,8 @@ if(!empty($_POST)){
                 <p class="monster-hp">モンスターのHP：<?php echo $_SESSION['monster']->getHp(); ?></p>
             <?php endif; ?>
             <p>倒したモンスター数：<?php echo $_SESSION['knockDownCount']; ?></p>
-            <p>勇者のHP：<?php echo $_SESSION['human']->getHp(); ?>/<?php echo $_SESSION['human']->getMaxHp(); ?></p>
-            <p>勇者の回復回数：<?php echo $_SESSION['human']->getRecoverCount(); ?></p>
+            <p>自分のHP：<?php echo $_SESSION['human']->getHp(); ?>/<?php echo $_SESSION['human']->getMaxHp(); ?></p>
+            <p>自分の回復回数：<?php echo $_SESSION['human']->getRecoverCount(); ?></p>
             <form method="post">
                 <?php if($_SESSION['monster'] instanceof God): ?>
                     <input type="submit" name="godRecover" value="▶回復してもらう">

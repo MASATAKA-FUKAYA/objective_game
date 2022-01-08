@@ -158,7 +158,7 @@ class Wizard extends Human{
                 $attackPoint = (int)$attackPoint;
                 $targetObj->setHp($targetObj->getHp() - $attackPoint);
                 History::set($attackPoint.'ポイントのダメージ!');
-                History::set($attackPoint.'効果は抜群だ!!!');
+                History::set('効果は抜群だ!!!');
             }else{
                 //それ以外のモンスターの場合、魔法攻撃はランダムで通常攻撃の50%~200%のダメージになる
                 $attackPoint = mt_rand($this->attackMin * 0.5, $this->attackMax * 2);

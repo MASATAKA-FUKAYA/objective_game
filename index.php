@@ -151,7 +151,7 @@ if(!empty($_POST)){
             </form>
         <?php endif; ?>
         <div style="position:absolute; right:-350px; top:0; color:black; width: 300px;">
-            <p><?php echo (!empty($_SESSION['history'])) ? $_SESSION['history'] : ''; ?></p>
+            <textarea><?php echo (!empty($_SESSION['history'])) ? $_SESSION['history'] : ''; ?></textarea>
         </div>
     </div>
 </body>

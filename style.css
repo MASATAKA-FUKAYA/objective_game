@@ -65,3 +65,9 @@ img{
     padding: 15px;
     position: relative;
 }
+
+textarea{
+    width: 100%;
+    background-color: aqua;
+    height: 500px;
+}

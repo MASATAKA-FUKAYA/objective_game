@@ -305,7 +305,7 @@ class History implements HistoryInterface{
         //セッションhistoryが作られていなければ作る
         if(empty($_SESSION['history'])) $_SESSION['history'] = '';
         //文字列をセッションhistoryへ格納
-        $_SESSION['history'] .= $str.'<br>';
+        $_SESSION['history'] .= $str. "\n";
     }
     public static function clear(){
         unset($_SESSION['history']);
